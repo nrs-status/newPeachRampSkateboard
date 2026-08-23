@@ -6,7 +6,7 @@ inputsForImportPairs ? null
 , # supposes null iff doesn't take an argument. if you need a function that can pass null as an argument make a separate function
  }:
 (import ./withDebug.nix) rec {
-  filesList = (import ./listDirsSatisfyingPred.nix { inherit pkgsLib; }) {
+  filesList = (import ./listFilesSatisfyingPred.nix { inherit pkgsLib; }) {
     dir = dirPath;
     pred = if pred == null then _: true else pred;
   };
