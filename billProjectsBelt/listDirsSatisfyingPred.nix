@@ -4,6 +4,6 @@
   fileListing = if recursive then
     pkgsLib.filesystem.listFilesRecursive dir
   else
-    builtins.keys (builtins.readDir dir);
+    builtins.attrNames (builtins.readDir dir);
   __output = builtins.filter pred fileListing;
 }
