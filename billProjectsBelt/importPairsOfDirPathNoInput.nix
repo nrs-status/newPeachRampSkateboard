@@ -9,7 +9,7 @@ dirPath, # used to list paths recursively
     inherit pred;
   };
   mkImportPair = path: {
-    name = baseNameOf (dirOf path);
+    name = pkgsLib.removeSuffix ".nix" (baseNameOf path);
     value = import path;
   };
   importPairList = map mkImportPair filesList;

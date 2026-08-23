@@ -9,7 +9,7 @@ inputsForImportPairs }:
     inherit pred;
   };
   mkImportPair = path: {
-    name = baseNameOf (dirOf path);
+    name = pkgsLib.removeSuffix ".nix" (baseNameOf path);
     value = import path inputsForImportPairs;
   };
   importPairList = map mkImportPair filesList;
