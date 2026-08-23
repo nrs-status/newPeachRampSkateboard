@@ -1,7 +1,7 @@
 { pkgsLib }:
 rec {
-  dImport = import ./dImport.nix;
-  importPairsOfDirPath = x: dImport ./importPairsOfDirPath.nix [ { inherit pkgsLib; } x ];
-  importPairsOfDirPathNoInput = x: dImport ./importPairsOfDirPathNoInput.nix [ { inherit pkgsLib; } x ];
-  listDirsSatisfyingPred = x: dImport ./listDirsSatisfyingPred.nix [ { inherit pkgsLib; } x ];
+  withDebug = import ./withDebug.nix;
+  importPairsOfDirPath = x: import ./importPairsOfDirPath.nix { inherit pkgsLib; } x;
+  importPairsOfDirPathNoInput = x: import ./importPairsOfDirPathNoInput.nix { inherit pkgsLib; } x;
+  listDirsSatisfyingPred = x: import ./listDirsSatisfyingPred.nix { inherit pkgsLib; } x ;
 }

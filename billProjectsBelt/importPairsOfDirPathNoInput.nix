@@ -2,14 +2,15 @@
 { pkgsLib }:
 { pred, # used to filter paths
 dirPath, # used to list paths recursively
-}: rec {
+ }: 
+(import ./withDebug.nix) rec {
   filesList = (import ./listDirsSatisfyingPred.nix { inherit pkgsLib; }) {
     dir = dirPath;
     inherit pred;
   };
   mkImportPair = path: {
     name = baseNameOf (dirOf path);
-    value = (import ./dImport.nix) path;
+    value = import path;
   };
   importPairList = map mkImportPair filesList;
   __output =
