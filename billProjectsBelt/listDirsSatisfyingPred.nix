@@ -1,7 +1,9 @@
 { pkgsLib }:
-{ dir, pred }:
+{ dir, pred, recursive ? false }:
 (import ./withDebug.nix) rec {
-  recursiveListing = pkgsLib.filesystem.listFilesRecursive dir;
-  keepElmsSatisfyingPred = builtins.filter pred recursiveListing;
-  __output = keepElmsSatisfyingPred;
+  fileListing = if recursive then
+    pkgsLib.filesystem.listFilesRecursive dir
+  else
+    builtins.readDir dir;
+  __output = builtins.filter pred fileListing;
 }

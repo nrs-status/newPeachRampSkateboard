@@ -2,15 +2,20 @@
 { pkgsLib }:
 { pred, # used to filter paths
 dirPath, # used to list paths recursively
-inputsForImportPairs }: 
+inputsForImportPairs
+, # supposes null iff doesn't take an argument. if you need a function that can pass null as an argument make a separate function
+recursive ? false }:
 (import ./withDebug.nix) rec {
   filesList = (import ./listDirsSatisfyingPred.nix { inherit pkgsLib; }) {
     dir = dirPath;
-    inherit pred;
+    inherit pred recursive;
   };
   mkImportPair = path: {
     name = pkgsLib.removeSuffix ".nix" (baseNameOf path);
-    value = import path inputsForImportPairs;
+    value = if inputsForImportPairs == null then
+      import path
+    else
+      import path inputsForImportPairs;
   };
   importPairList = map mkImportPair filesList;
   __output =
