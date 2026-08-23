@@ -4,7 +4,7 @@
 dirPath, # used to list paths recursively
 inputsForImportPairs ? null
 , # supposes null iff doesn't take an argument. if you need a function that can pass null as an argument make a separate function
-recursive ? false }:
+recursive ? true }:
 (import ./withDebug.nix) rec {
   filesList = (import ./listDirsSatisfyingPred.nix { inherit pkgsLib; }) {
     dir = dirPath;
