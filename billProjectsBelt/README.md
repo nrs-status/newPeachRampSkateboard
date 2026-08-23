@@ -1,0 +1,1 @@
+This is the only directory that has a manually defined default.nix and is used to define the machinery to automate the behaviour of default.nix for other directories. `dImport.nix` is the only function-file across my nix projects that does not have the form of a recursive attribute set.
