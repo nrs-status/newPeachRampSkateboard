@@ -11,5 +11,5 @@ let
         total.__output
       else
         throw "withDebug: attribute set lacks `__output` attribute";
-    dImport = filepath: args: withDebug ((import filepath) args);
+    dImport = filepath: args: withDebug (import filepath) args;
 in dImport

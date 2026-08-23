@@ -1,15 +1,18 @@
-#creates an attribute set whose keys are a file name without a suffix, and whose values are that file imported
+# creates an attribute set whose keys are a file name without a suffix, and whose values are that file imported
 { pkgsLib }:
-dirPath:  #dirPath will be used to list subpaths recursively
-rec {
+{ pred, # used to filter paths
+dirPath, # used to list paths recursively
+}: rec {
   filesList = (import ./listDirsSatisfyingPred.nix { inherit pkgsLib; }) {
     dir = dirPath;
-    pred = pkgsLib.hasSuffix "default.nix";
+    inherit pred;
   };
   mkImportPair = path: {
     name = baseNameOf (dirOf path);
-    value = import path;
+    value = (import ./dImport.nix) path;
   };
   importPairList = map mkImportPair filesList;
-  __output = builtins.foldl' (acc: next: acc // { ${next.name} = next.value; }) {} importPairList;
+  __output =
+    builtins.foldl' (acc: next: acc // { ${next.name} = next.value; }) { }
+    importPairList;
 }
