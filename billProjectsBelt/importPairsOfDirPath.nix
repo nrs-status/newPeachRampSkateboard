@@ -2,7 +2,7 @@
 { pkgsLib }:
 { pred, # used to filter paths
 dirPath, # used to list paths recursively
-inputsForImportPairs
+inputsForImportPairs ? null
 , # supposes null iff doesn't take an argument. if you need a function that can pass null as an argument make a separate function
 recursive ? false }:
 (import ./withDebug.nix) rec {
