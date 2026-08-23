@@ -2,5 +2,6 @@
 { dir, pred }:
 (import ./withDebug.nix) rec {
   fileListing = pkgsLib.filesystem.listFilesRecursive dir;
-  __output = builtins.filter pred fileListing;
+  directories = pkgsLib.lists.unique (map dirOf fileListing);
+  __output = builtins.filter pred (directories ++ fileListing);
 }
