@@ -1,5 +1,5 @@
 { pkgsLib }:
-{ dir, pred, recursive ? false }:
+{ dir, pred, recursive ? true }:
 (import ./withDebug.nix) rec {
   fileListing = if recursive then
     pkgsLib.filesystem.listFilesRecursive dir
